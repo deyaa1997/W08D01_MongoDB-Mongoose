@@ -6,7 +6,16 @@ const { Mongoose } = require("mongoose");
 const app = express();
 app.use(express.json());
 
-app.get("/todos", (req, res) => {});
+app.get("/todos", (req, res) => {
+  todoModel
+    .find({})
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
 
 app.post("/create/todo", (req, res) => {
   const { task, description, deadline, isCompleted, priority } = req.body;
@@ -23,6 +32,17 @@ app.post("/create/todo", (req, res) => {
     .save()
     .then((result) => {
       res.json(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.get("/completedtodos", (req, res) => {
+  todoModel
+    .find({isCompleted:true})
+    .then((result) => {
+      res.send(result);
     })
     .catch((err) => {
       res.send(err);

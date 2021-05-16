@@ -40,7 +40,7 @@ app.post("/create/todo", (req, res) => {
 
 app.get("/completedtodos", (req, res) => {
   todoModel
-    .find({isCompleted:true})
+    .find({ isCompleted: true })
     .then((result) => {
       res.send(result);
     })
@@ -49,7 +49,20 @@ app.get("/completedtodos", (req, res) => {
     });
 });
 
-app.put("/update/todo", (req, res) => {});
+app.put("/update/todo", (req, res) => {
+
+  const { task, description, deadline, isCompleted, priority } = req.body;
+
+  todoModel
+    .update({}, {task, description , deadline , isCompleted , priority})
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+
+});
 
 app.delete("/delete/todo", (req, res) => {});
 

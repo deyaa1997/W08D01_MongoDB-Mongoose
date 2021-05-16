@@ -56,7 +56,7 @@ app.put("/update/todo", (req, res) => {
   todoModel
     .update({}, {task, description , deadline , isCompleted , priority})
     .then((result) => {
-      res.send(result);
+      res.send("Updated Complete");
     })
     .catch((err) => {
       res.send(err);
